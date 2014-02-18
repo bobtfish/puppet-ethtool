@@ -7,54 +7,44 @@
     * [Setup requirements](#setup-requirements)
     * [Beginning with type-ethtool](#beginning-with-<%= metadata.name %>)
 4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
 ##Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves. This is your 30 second elevator pitch for your module. Consider including OS/Puppet version it works with.       
-
-##Module Description
-
-If applicable, this section should have a brief description of the technology the module integrates with and what that integration enables. This section should answer the questions: "What does this module *do*?" and "Why would I use it?"
-
-If your module has a range of functionality (installation, configuration, management, etc.) this is the time to mention it.
+This module enables you to set settings on your ethernet interfaces using the ethtool command.
 
 ##Setup
 
+You must turn pluginsync on to use this module
+
 ###What type-ethtool affects
 
-* A list of files, packages, services, or operations that the module will alter, impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form. 
-
-###Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, etc.), mention it here. 
+* This module will only call the ethtool utility
+* This can be **DANGEROUS** you can use this module to break the networking on your servers.
 
 ###Beginning with type-ethtool
 
-The very basic steps needed for a user to get the module up and running. 
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you may wish to include an additional section here: Upgrading (For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+  ethtool { 'eth0': }
 
 ##Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing the fancy stuff with your module here. 
-
-##Reference
-
-Here, list the classes, types, providers, facts, etc contained in your module. This section should include all of the under-the-hood workings of your module so people know what the module is touching on their system but don't need to mess with things. (We are working on automating this section!)
+  ethtool { 'eth0':
+    tso              => 'disabled',
+    autonegotiate_tx => 'disabled',
+    autonegotiate_rx => 'disabled',
+  }
 
 ##Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+Only works on Linux.
+
+Currently only manages a (small) subset of the whole ethtool functionality.
 
 ##Development
 
-Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.
+This module works for what it does, but will not fulfil everyone's needs.
 
-##Release Notes/Contributors/Etc **Optional**
+Please feel free to patch and send pull requests
 
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You may also add any additional sections you feel are necessary or important to include here. Please use the `## ` header. 
+
