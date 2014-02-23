@@ -1,0 +1,10 @@
+Offload parameters for eth0:
+Cannot get device udp large send offload settings: Operation not supported
+rx-checksumming: on
+tx-checksumming: on
+scatter-gather: on
+tcp segmentation offload: off
+udp fragmentation offload: off
+generic segmentation offload: off
+generic-receive-offload: off
+

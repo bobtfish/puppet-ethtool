@@ -1,0 +1,5 @@
+use parameters for eth0:
+Autonegotiate:  on
+RX:     off
+TX:     off
+
