@@ -12,7 +12,7 @@ Puppet::Type.type(:ethtool).provide(:linux) do
   end
 
   def tso
-    ethtool('-k', resource[:name]).split(/\n/).find { |line| line =~ /tcp-segmentation-offload/ }.split(/ /)[1] == 'on' ? 'enabled' : 'disabled'
+    ethtool('-k', resource[:name]).split(/\n/).find { |line| line =~ /tcp[ -]segmentation[ -]offload/ }.split(/: /)[1] == 'on' ? 'enabled' : 'disabled'
   end
   def tso=(value)
     setting = case value
