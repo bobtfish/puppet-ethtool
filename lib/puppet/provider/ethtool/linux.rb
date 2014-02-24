@@ -30,7 +30,7 @@ Puppet::Type.type(:ethtool).provide(:linux) do
       :properties => {
         'autonegotiate' => { :re => /Autonegotiate/, :arg => 'autoneg' },
         'autonegotiate_tx' => { :re => /TX/, :arg => 'tx' },
-        'autonegotiate_rw' => { :rw => /RX/, :arg => 'rw' }
+        'autonegotiate_rx' => { :re => /RX/, :arg => 'rx' }
       }
     }
   }.each do |split_re, data|
