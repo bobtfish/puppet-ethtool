@@ -23,11 +23,23 @@ describe provider_class do
     provider.expects(:ethtool).with("-#{type}", 'eth0').returns(IO.read("#{File.dirname(__FILE__)}/../../../fixtures/ethtool_outputs/#{type}/#{name}.txt"))
   end
 
-  ['centos5_1', 'ubuntulucid_1'].each do |name|
-    it "Be able to detect TSO on #{name}" do
-      load_fix('k', name)
-      expect(provider.tso).to eql('disabled')
+  ['centos5_1', 'ubuntulucid_1'].each do |fixture_name|
+    %w{tso ufo gro gso}.each do |type|
+      it "can detect #{type} on #{name}" do
+        load_fix('k', fixture_name)
+        expect(provider.send(type.to_sym)).to eql('disabled')
+      end
     end
+  end
+
+  it "can NOT detect lro on centos5_1" do
+    load_fix('k', 'centos5_1')
+    expect(provider.lro).to eql('unknown')
+  end
+
+  it "can detect lro on ubuntulucid_1" do
+    load_fix('k', 'ubuntulucid_1')
+    expect(provider.lro).to eql('disabled')
   end
 
   it "Be able to enable TSO" do

@@ -4,7 +4,7 @@ tx-checksumming: on
 scatter-gather: on
 tcp-segmentation-offload: off
 udp-fragmentation-offload: off
-generic-segmentation-offload: on
-generic-receive-offload: on
+generic-segmentation-offload: off
+generic-receive-offload: off
 large-receive-offload: off
 
