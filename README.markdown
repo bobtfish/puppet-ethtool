@@ -16,18 +16,25 @@ This module enables you to set settings on your ethernet interfaces using the et
 
 ##Setup
 
-You must turn pluginsync on to use this module
+You must turn pluginsync on to use this module as it is implemented as a custom type and provider
 
 ###What type-ethtool affects
 
-* This module will only call the ethtool utility
+* This module will only call the ethtool utility, so will only affect settings on already
+  configured network interfaces. It **will not** adjust the settings which interfaces are
+  brought up with.
+
 * This can be **DANGEROUS** you can use this module to break the networking on your servers.
 
 ###Beginning with type-ethtool
 
-  ethtool { 'eth0': }
+  ethtool { 'eth0':
+     .. put options here ..
+  }
 
 ##Usage
+
+Example usage with the most commonly used options:
 
   ethtool { 'eth0':
     speed            => '100',
@@ -39,7 +46,8 @@ You must turn pluginsync on to use this module
 
 ### All supported properties
 
-Note that not all interfaces support the querying or setting of all of these properties.
+Note that not all interfaces support the querying or setting of all of these properties!
+Which settings and properties are available will depend on your ethernet card and driver!
 
 #### speed
 
