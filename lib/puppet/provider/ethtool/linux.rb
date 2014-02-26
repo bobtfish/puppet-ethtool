@@ -11,6 +11,20 @@ Puppet::Type.type(:ethtool).provide(:linux) do
     end
   end
 
+  # TODO - Set speed and duplex together in flush and also grab the values only once
+  def speed
+
+  end
+  def speed=(value)
+
+  end
+  def duplex
+
+  end
+  def duplex=
+
+  end
+
   # Hairy metaprogramming rather than a load of boringly similar methods :)
   { /: / => {
       :arg => 'k',
