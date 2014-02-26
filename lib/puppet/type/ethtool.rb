@@ -24,8 +24,8 @@ Puppet::Type.newtype(:ethtool) do
   end
   # FIXME - docs
   {:rx_usecs => '', :rx_frames => '', :rx_usecs_irq => '', :rx_frames_irq => '', :tx_usecs => '', :tx_frames => '', :tx_usecs_irq => '', :tx_frames_irq => '',
-   :stats_block_usecs => '', :pkt_rate_low => '', :rx_usecs_low => '', :rx_frames_low => '', :tx_usecs_low => '', :tx_frames_low => '', :pkt_rate_high => '',
-   :rx_usecs_high => '', :rx_frames_high => '', :tx_usecs_high => '', :tx_frames_high => '', :sample_interval=> ''}.each do |prop_name, prop_docs|
+   :stats_block_usecs => '', :pkt_rate_low => '', :rx_usecs_low => '', :rx_frame_low => '', :tx_usecs_low => '', :tx_frame_low => '', :pkt_rate_high => '',
+   :rx_usecs_high => '', :rx_frame_high => '', :tx_usecs_high => '', :tx_frame_high => '', :sample_interval=> ''}.each do |prop_name, prop_docs|
     newproperty(prop_name) do
       desc prop_docs if prop_docs != ''
       # FIXME Allow integers..
