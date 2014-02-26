@@ -30,10 +30,16 @@ You must turn pluginsync on to use this module
 ##Usage
 
   ethtool { 'eth0':
+    speed            => '100',
+    duplex           => 'full',
     tso              => 'disabled',
     autonegotiate_tx => 'disabled',
     autonegotiate_rx => 'disabled',
   }
+
+### All supported properties
+
+####
 
 ##Limitations
 
