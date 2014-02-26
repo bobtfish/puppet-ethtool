@@ -39,13 +39,37 @@ You must turn pluginsync on to use this module
 
 ### All supported properties
 
-####
+Note that not all interfaces support the querying or setting of all of these properties.
+
+#### tso
+
+If TCP segment offload is enabled or disabled for this interface',
+
+#### lro
+
+Specifies whether large receive offload should be enabled or disabled',
+
+#### ufo
+
+Specifies whether UDP fragmentation offload should be enabled or disabled',
+    :gso => 'Specifies whether generic segmentation offload should be enabled',
+    :gro => 'Specifies whether generic receive offload should be enabled',
+    :sg => 'Specifies whether scatter_gather should be enabled',
+    :checksum_rx => 'Specifies whether RX checksumming should be enabled',
+    :checksum_tx => 'Specifies whether TX checksumming should be enabled',
+    :autonegotiate => 'if autonegotiation is enabled or disabled',
+    :autonegotiate_tx => 'if autonegotiation is enabled or disabled for transmitting',
+    :autonegotiate_rx => 'if autonegotiation is enabled or disabled for receiving',
 
 ##Limitations
 
 Only works on Linux.
 
 Currently only manages a (small) subset of the whole ethtool functionality.
+
+Doesn't support puppet resource querying of resource state.
+
+Doesn't cache properties or use the flush interface, so makes one call to ethtool per property..
 
 ##Development
 
