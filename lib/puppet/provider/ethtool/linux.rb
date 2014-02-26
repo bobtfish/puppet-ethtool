@@ -54,9 +54,9 @@ Puppet::Type.type(:ethtool).provide(:linux) do
 
   # Adaptive RX: off  TX: off
   def adaptive_rx
-    answer = ethtool('-c', resource[:name]).split(/\n/).find { |line| /Adaptive RX:/ }
+    answer = ethtool('-c', resource[:name]).split(/\n/).find { |line| line =~ /Adaptive RX:/ }
     if answer
-      answer.split(/ +/)[3]
+      answer.split(/ +/)[2] == 'on' ? 'enabled' : 'disabled'
     else
       'unknown'
     end
@@ -67,7 +67,7 @@ Puppet::Type.type(:ethtool).provide(:linux) do
   def adaptive_tx
     answer = ethtool('-c', resource[:name]).split(/\n/).find { |line| /Adaptive.+TX:/ }
     if answer
-      answer.gsub(/.*TX:\s*/, '')
+      answer.gsub(/.*TX:\s*/, '') == 'on' ? 'enabled' : 'disabled'
     else
       'unknown'
     end
@@ -77,12 +77,11 @@ Puppet::Type.type(:ethtool).provide(:linux) do
   end
 
   %w{rx-usecs rx-frames rx-usecs-irq rx-frames-irq tx-usecs tx-frames tx-usecs-irq tx-frames-irq
-     stats-block-usecs pkt-rate-low rx-usecs-low rx-frames-low tx-usecs-low tx-frames-low pkt-rate-high
+     stats-block-usecs pkt-rate-low rx-usecs-low rx-frame-low tx-usecs-low tx-frame-low pkt-rate-high
      rx-usecs-high rx-frame-high tx-usecs-high tx-frame-high sample-interval}.each do |arg|
     get_method = arg.gsub(/-/, '_')
     define_method get_method do
       answer = ethtool('-c', resource[:name]).split(/\n/).find { |line| line =~ Regexp.new(arg) }
-      puts answer
       if answer
         answer.split(/: /)[1]
       else

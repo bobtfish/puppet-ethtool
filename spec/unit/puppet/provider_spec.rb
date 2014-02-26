@@ -70,9 +70,8 @@ describe provider_class do
   end
 
   ['centos5_1', 'ubuntulucid_1'].each do |fixture_name|
-    %w{rx_usecs rx_frames rx_usecs-irq rx_frames_irq tx_usecs tx_frames tx_usecs_irq tx_frames_irq
-       stats_block_usecs pkt_rate_low rx_usecs_low rx_frames_low tx_usecs_low tx_frame_low pkt_rate_high
-       rx_usecs_high rx_frames_high tx_usecs_high tx_frame_high sample_interval}.each do |type|
+    %w{stats_block_usecs pkt_rate_low rx_usecs_low rx_frame_low tx_usecs_low tx_frame_low pkt_rate_high
+       rx_usecs_high rx_frame_high tx_usecs_high tx_frame_high sample_interval}.each do |type|
       it "can detect #{type} on #{fixture_name}" do
         load_fix('c', fixture_name)
         expect(provider.send(type.to_sym)).to eql('0')
