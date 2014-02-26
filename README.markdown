@@ -41,25 +41,57 @@ You must turn pluginsync on to use this module
 
 Note that not all interfaces support the querying or setting of all of these properties.
 
+#### speed
+
+The speed of the interface: auto/10/100/1000. Note that not all speeds are supported on every interface
+
+#### duplex
+
+If duplex transmission should be enabled on the interface. Possible values are full half or auto.
+
 #### tso
 
-If TCP segment offload is enabled or disabled for this interface',
+If TCP segment offload is enabled or disabled for this interface
 
 #### lro
 
-Specifies whether large receive offload should be enabled or disabled',
+Specifies whether large receive offload should be enabled or disabled
 
 #### ufo
 
-Specifies whether UDP fragmentation offload should be enabled or disabled',
-    :gso => 'Specifies whether generic segmentation offload should be enabled',
-    :gro => 'Specifies whether generic receive offload should be enabled',
-    :sg => 'Specifies whether scatter_gather should be enabled',
-    :checksum_rx => 'Specifies whether RX checksumming should be enabled',
-    :checksum_tx => 'Specifies whether TX checksumming should be enabled',
-    :autonegotiate => 'if autonegotiation is enabled or disabled',
-    :autonegotiate_tx => 'if autonegotiation is enabled or disabled for transmitting',
-    :autonegotiate_rx => 'if autonegotiation is enabled or disabled for receiving',
+Specifies whether UDP fragmentation offload should be enabled or disabled
+
+#### gso
+
+Specifies whether generic segmentation offload should be enabled
+
+#### gro
+
+Specifies whether generic receive offload should be enabled
+
+#### sg
+
+Specifies whether scatter_gather should be enabled
+
+#### checksum_rx
+
+Specifies whether RX checksumming should be enabled
+
+#### checksum_tx
+
+Specifies whether TX checksumming should be enabled
+
+#### autonegotiate
+
+If autonegotiation (PAUSE frames) are enabled or disabled
+
+#### autonegotiate_tx
+
+If autonegotiation is enabled or disabled for transmitting
+
+#### autonegotiate_rx
+
+If autonegotiation is enabled or disabled for receiving
 
 ##Limitations
 
