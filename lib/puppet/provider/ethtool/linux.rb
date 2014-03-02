@@ -13,16 +13,16 @@ Puppet::Type.type(:ethtool).provide(:linux) do
 
   # TODO - Set speed and duplex together in flush and also grab the values only once
   def speed
-
+    ethtool(resource[:name]).split(/\n/).find { |line| line =~ /Speed: / }.gsub(/[^\d]/, '')
   end
   def speed=(value)
-
+    ethtool('-s', resource[:name], 'speed', value)
   end
   def duplex
-
+    ethtool(resource[:name]).split(/\n/).find { |line| line =~ /Duplex: / }.gsub(/\s*Duplex:\s*/, '').downcase
   end
-  def duplex=
-
+  def duplex=(value)
+    ethtool('-s', resource[:name], 'speed', speed, 'duplex', value)
   end
 
   # Hairy metaprogramming rather than a load of boringly similar methods :)
