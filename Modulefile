@@ -1,4 +1,4 @@
-name          'type-ethtool'
+name          'bobtfish/ethtool'
 version       '0.0.1'
 source        'https://github.com/bobtfish/puppet-type-ethtool'
 author        'Tomas Doran'
