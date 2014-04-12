@@ -32,7 +32,7 @@ You must turn pluginsync on to use this module as it is implemented as a custom 
      .. put options here ..
   }
 
-##Usage
+## Type Usage
 
 Example usage with the most commonly used options:
 
@@ -43,6 +43,18 @@ Example usage with the most commonly used options:
     autonegotiate_tx => 'disabled',
     autonegotiate_rx => 'disabled',
   }
+
+## Class Usage
+
+You can use the puppet *class* to (optionally) install ethtool for your,
+and enforce ordering so that the ethtool *type* is only used after
+the ethtool package is available:
+
+    include ethtool
+
+For when you don't want it to install ethtool for you:
+
+    class { 'ethtool': ensure_installed => false }
 
 ### All supported properties
 
