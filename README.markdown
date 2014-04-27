@@ -117,7 +117,7 @@ If autonegotiation is enabled or disabled for receiving
 
 Only works on Linux.
 
-Currently only manages a (small) subset of the whole ethtool functionality.
+Currently only manages a subset of the whole ethtool functionality.
 
 Doesn't support puppet resource querying of resource state.
 
