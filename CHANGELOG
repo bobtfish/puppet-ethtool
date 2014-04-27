@@ -1,3 +1,7 @@
+2014-04-27 Release 0.0.4
+- Tided up documentation and naming.
+- MOVED THE GITHUB REPOSITORY to be consistently named.
+
 2014-04-27 Release 0.0.3
 - Added ethtool class to install ethtool
 - Make the interface speed check not spit out errors when ethtool is not available
