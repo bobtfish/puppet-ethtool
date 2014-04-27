@@ -2,10 +2,10 @@
 
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with type-ethtool](#setup)
-    * [What type-ethtool affects](#what-<%= metadata.name %>-affects)
+3. [Setup - The basics of getting started with ethtool](#setup)
+    * [What ethtool affects](#what-<%= metadata.name %>-affects)
     * [Setup requirements](#setup-requirements)
-    * [Beginning with type-ethtool](#beginning-with-<%= metadata.name %>)
+    * [Beginning with ethtool](#beginning-with-<%= metadata.name %>)
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
@@ -18,7 +18,7 @@ This module enables you to set settings on your ethernet interfaces using the et
 
 You must turn pluginsync on to use this module as it is implemented as a custom type and provider
 
-###What type-ethtool affects
+###What ethtool affects
 
 * This module will only call the ethtool utility, so will only affect settings on already
   configured network interfaces. It **will not** adjust the settings which interfaces are
@@ -26,7 +26,7 @@ You must turn pluginsync on to use this module as it is implemented as a custom 
 
 * This can be **DANGEROUS** you can use this module to break the networking on your servers.
 
-###Beginning with type-ethtool
+###Beginning with ethtool
 
   ethtool { 'eth0':
      .. put options here ..
