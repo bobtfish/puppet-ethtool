@@ -1,3 +1,11 @@
-2014-02-?? Release 0.0.1
-- initial version
+2014-04-27 Release 0.0.3
+- Added ethtool class to install ethtool
+- Make the interface speed check not spit out errors when ethtool is not available
+
+2014-04-08 Release 0.0.2
+- First forge release
+- Support a bunch of new options like speed and duplex
+
+2014-02-18 Release 0.0.1
+- initial version with _Just_ TSO
 
