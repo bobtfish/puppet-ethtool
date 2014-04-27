@@ -1,5 +1,23 @@
+module PuppetX
+  module Type
+    module EthTool
+      module InSyncMixin
+        def insync?(is)
+          if is == 'unknown' and resource[:ignore_impossible_operations] == true
+            true
+          else
+            super(is)
+          end
+        end
+      end
+    end
+  end
+end
 Puppet::Type.newtype(:ethtool) do
   @doc = "Manage settings with ethtool."
+  newparam(:ignore_impossible_operations) do
+    defaultto(false)
+  end
   newproperty(:speed) do
     desc "The speed of the interface: auto/10/100/1000. Note that not all speeds are supported on every interface"
     newvalue(:auto)
@@ -33,6 +51,7 @@ Puppet::Type.newtype(:ethtool) do
       desc description if description != ''
       newvalue(:enabled)
       newvalue(:disabled)
+      include PuppetX::Type::EthTool::InSyncMixin
     end
   end
   # FIXME - docs
@@ -42,6 +61,7 @@ Puppet::Type.newtype(:ethtool) do
     newproperty(prop_name) do
       desc prop_docs if prop_docs != ''
       # FIXME Allow integers..
+      include PuppetX::Type::EthTool::InSyncMixin
     end
   end 
 end
