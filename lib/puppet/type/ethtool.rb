@@ -19,11 +19,12 @@ Puppet::Type.newtype(:ethtool) do
     defaultto(false)
   end
   newproperty(:speed) do
-    desc "The speed of the interface: auto/10/100/1000. Note that not all speeds are supported on every interface"
+    desc "The speed of the interface: auto/10/100/1000/10000. Note that not all speeds are supported on every interface"
     newvalue(:auto)
     newvalue(:'10')
     newvalue(:'100')
     newvalue(:'1000')
+    newvalue(:'10000')
   end
   newproperty(:duplex) do
     desc "The duplex setting for the interface: full half or auto"
