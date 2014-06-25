@@ -16,7 +16,7 @@ Puppet::Type.type(:ethtool).provide(:linux) do
     ethtool(resource[:name]).split(/\n/).find { |line| line =~ /Speed: / }.gsub(/[^\d]/, '')
   end
   def speed=(value)
-    ethtool('-s', resource[:name], 'speed', value)
+    ethtool('-s', resource[:name], 'speed', value, 'duplex', duplex)
   end
   def duplex
     ethtool(resource[:name]).split(/\n/).find { |line| line =~ /Duplex: / }.gsub(/\s*Duplex:\s*/, '').downcase
