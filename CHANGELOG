@@ -1,3 +1,12 @@
+- Support 10G ethernet cards
+- Fix issue #5, if your ethernet card dosn't support the requested
+  operation, by default we won't try to perform it (avoiding errors).
+  You can re-enable the previous behaviour by passing
+  ignore_unknown => true to the type
+- Add a fact for the maximum ethernet speed that each card supports
+- Fix speed and duplex both in the same command, so that we don't
+  take two runs to converge, fixing #8
+
 2014-04-27 Release 0.0.4
 - Tided up documentation and naming.
 - MOVED THE GITHUB REPOSITORY to be consistently named.
