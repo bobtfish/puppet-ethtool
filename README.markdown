@@ -113,6 +113,15 @@ If autonegotiation is enabled or disabled for transmitting
 
 If autonegotiation is enabled or disabled for receiving
 
+#### ignore_unknown
+
+This defaults to true. If your ethernet card doesn't appear to support a setting
+then we don't try to set it, which means that you can set the settings you want
+generally, but they'll be ignored on NICs which don't support those settings.
+
+If you'd like puppet to try to set settings which can't be read anyway (and throw
+an error if this fails), then you can set this parameter to true.
+
 ##Limitations
 
 Only works on Linux.
