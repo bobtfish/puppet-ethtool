@@ -16,7 +16,7 @@ end
 Puppet::Type.newtype(:ethtool) do
   @doc = "Manage settings with ethtool."
   newparam(:ignore_unknown) do
-    defaultto(false)
+    defaultto(true)
   end
   newproperty(:speed) do
     desc "The speed of the interface: auto/10/100/1000/10000. Note that not all speeds are supported on every interface"
