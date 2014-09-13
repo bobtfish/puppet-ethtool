@@ -11,7 +11,7 @@ describe type_class do
     Puppet::Type.type(:ethtool).new(
       :name => 'eth0',
       :lro => 'enabled',
-      :ignore_impossible_operations => true,
+      :ignore_unknown => true,
       :provider => 'linux',
     )
   end

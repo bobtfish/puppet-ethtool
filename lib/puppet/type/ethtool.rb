@@ -3,7 +3,7 @@ module PuppetX
     module EthTool
       module InSyncMixin
         def insync?(is)
-          if is == 'unknown' and resource[:ignore_impossible_operations] == true
+          if is == 'unknown' and resource[:ignore_unknown] == true
             true
           else
             super(is)
@@ -15,7 +15,7 @@ module PuppetX
 end
 Puppet::Type.newtype(:ethtool) do
   @doc = "Manage settings with ethtool."
-  newparam(:ignore_impossible_operations) do
+  newparam(:ignore_unknown) do
     defaultto(false)
   end
   newproperty(:speed) do
