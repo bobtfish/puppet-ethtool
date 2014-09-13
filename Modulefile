@@ -1,5 +1,5 @@
 name          'bobtfish/ethtool'
-version '0.0.4'
+version '0.0.5'
 source        'https://github.com/bobtfish/puppet-ethtool'
 author        'Tomas Doran'
 license       'Apache 2'
