@@ -1,3 +1,4 @@
+2014-08-13 Release 0.0.5
 - Support 10G ethernet cards
 - Fix issue #5, if your ethernet card dosn't support the requested
   operation, by default we won't try to perform it (avoiding errors).
