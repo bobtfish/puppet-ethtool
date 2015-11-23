@@ -1,6 +1,7 @@
 require 'facter/util/ip'
 
 Facter::Util::IP.get_interfaces.each do |interface|
+  next if interface.starts_with('veth')
   Facter.debug("Running ethtool on interface #{interface}")
   out = Facter::Util::Resolution.exec("ethtool #{interface} 2>/dev/null")
   if !out.nil?
