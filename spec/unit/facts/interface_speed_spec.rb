@@ -31,6 +31,22 @@ describe "Interface Speed Fact" do
     end
   end
 
+  context "On linux when there are veth's" do
+    before do
+      Facter.clear
+      Facter.fact(:kernel).stubs(:value).returns("Linux")
+      Facter.fact(:virtual).stubs(:value).returns("physical")
+      Facter::Util::Resolution.stubs(:exec)
+      Facter::Util::Resolution.stubs(:exec).with("ethtool testeth 2>/dev/null | grep Speed").returns("	Speed: 42Mb/s")
+      Facter::Util::IP.stubs(:get_interfaces).returns( ['testeth', 'veth1', 'veth2'] )
+    end
+    it "Should report back just the real eth, not the veths" do
+      Facter.fact(:speed_testeth).value.should == '42'
+      Facter.fact(:speed_veth1).value.should == '42'
+      Facter.fact(:speed_veth2).value.should == '42'
+    end
+  end
+
   context "On an unsupported OS" do
     before do
       Facter.fact(:kernel).stubs(:value).returns(:windows)
