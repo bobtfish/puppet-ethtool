@@ -7,4 +7,5 @@ udp-fragmentation-offload: off
 generic-segmentation-offload: off
 generic-receive-offload: off
 large-receive-offload: off
-
+rx-vlan-offload: on
+tx-vlan-offload: on
