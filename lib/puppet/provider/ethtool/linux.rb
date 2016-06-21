@@ -37,6 +37,8 @@ Puppet::Type.type(:ethtool).provide(:linux) do
         'sg' => { :re => /scatter[ -]gather/ },
         'checksum_rx' => { :re => /rx[ -]checksumming/, :arg => 'rx' },
         'checksum_tx' => { :re => /tx[ -]checksumming/, :arg => 'tx' },
+        'txvlan' => { :re => /tx[ -]vlan[ -]offload/, :arg => 'txvlan' },
+        'rxvlan' => { :re => /rx[ -]vlan[ -]offload/, :arg => 'rxvlan' },
       }
     },
     / +/ => {
