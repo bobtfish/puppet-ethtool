@@ -115,11 +115,11 @@ If autonegotiation is enabled or disabled for receiving
 
 #### rxvlan
 
-Specifies whether rx-vlan-offload should be enabled
+Specifies whether rx-vlan-offload should be disabled
 
 #### txvlan
 
-Specifies whether tx-vlan-offload should be enabled
+Specifies whether tx-vlan-offload should be disabled
 
 #### ignore_unknown
 
