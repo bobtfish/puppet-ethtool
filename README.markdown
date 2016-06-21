@@ -113,6 +113,14 @@ If autonegotiation is enabled or disabled for transmitting
 
 If autonegotiation is enabled or disabled for receiving
 
+#### rxvlan
+
+Specifies whether rx-vlan-offload should be enabled
+
+#### txvlan
+
+Specifies whether tx-vlan-offload should be enabled
+
 #### ignore_unknown
 
 This defaults to true. If your ethernet card doesn't appear to support a setting
