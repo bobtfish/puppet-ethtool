@@ -1,3 +1,7 @@
+# puppet-ethtool
+
+[![Build Status](https://travis-ci.org/bobtfish/puppet-ethtool.png)](https://travis-ci.org/bobtfish/puppet-ethtool)
+
 ####Table of Contents
 
 1. [Overview](#overview)
@@ -10,15 +14,15 @@
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
-##Overview
+## Overview
 
 This module enables you to set settings on your ethernet interfaces using the ethtool command.
 
-##Setup
+## Setup
 
 You must turn pluginsync on to use this module as it is implemented as a custom type and provider
 
-###What ethtool affects
+### What ethtool affects
 
 * This module will only call the ethtool utility, so will only affect settings on already
   configured network interfaces. It **will not** adjust the settings which interfaces are
@@ -26,7 +30,7 @@ You must turn pluginsync on to use this module as it is implemented as a custom 
 
 * This can be **DANGEROUS** you can use this module to break the networking on your servers.
 
-###Beginning with ethtool
+### Beginning with ethtool
 
   ethtool { 'eth0':
      .. put options here ..
@@ -137,5 +141,3 @@ Doesn't cache properties or use the flush interface, so makes one call to ethtoo
 This module works for what it does, but will not fulfil everyone's needs.
 
 Please feel free to patch and send pull requests
-
-
