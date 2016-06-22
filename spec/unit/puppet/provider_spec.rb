@@ -43,7 +43,7 @@ describe provider_class do
   end
 
   ['centos5_1', 'ubuntulucid_1'].each do |fixture_name|
-    %w{sg checksum_rx checksum_tx}.each do |type|
+    %w{sg checksum_rx checksum_tx rxvlan txvlan}.each do |type|
       it "can detect #{type} on #{fixture_name}" do
         load_fix('k', fixture_name)
         expect(provider.send(type.to_sym)).to eql('enabled')

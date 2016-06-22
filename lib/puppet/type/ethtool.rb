@@ -47,6 +47,8 @@ Puppet::Type.newtype(:ethtool) do
     :autonegotiate_rx => 'if autonegotiation is enabled or disabled for receiving',
     :adaptive_tx => '',
     :adaptive_rx => '',
+    :txvlan => '',
+    :rxvlan => '',
   }.each do |name, description|
     newproperty(name) do
       desc description if description != ''
