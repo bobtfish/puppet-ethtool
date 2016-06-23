@@ -42,8 +42,8 @@ describe "Interface Speed Fact" do
     end
     it "Should report back just the real eth, not the veths" do
       Facter.fact(:speed_testeth).value.should == '42'
-      Facter.fact(:speed_veth1).value.should == '42'
-      Facter.fact(:speed_veth2).value.should == '42'
+      Facter.fact(:speed_veth1).should == nil
+      Facter.fact(:speed_veth2).should == nil
     end
   end
 
