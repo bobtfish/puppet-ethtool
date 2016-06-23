@@ -32,21 +32,25 @@ You must turn pluginsync on to use this module as it is implemented as a custom 
 
 ### Beginning with ethtool
 
-  ethtool { 'eth0':
-     .. put options here ..
-  }
+```puppet
+ethtool { 'eth0':
+   .. put options here ..
+}
+```
 
 ## Type Usage
 
 Example usage with the most commonly used options:
 
-  ethtool { 'eth0':
-    speed            => '100',
-    duplex           => 'full',
-    tso              => 'disabled',
-    autonegotiate_tx => 'disabled',
-    autonegotiate_rx => 'disabled',
-  }
+```puppet
+ethtool { 'eth0':
+  speed            => '100',
+  duplex           => 'full',
+  tso              => 'disabled',
+  autonegotiate_tx => 'disabled',
+  autonegotiate_rx => 'disabled',
+}
+```
 
 ## Class Usage
 
