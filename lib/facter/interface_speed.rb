@@ -1,19 +1,17 @@
-require 'facter/util/ip'
-
-Facter::Util::IP.get_interfaces.each do |interface|
-  next if interface.start_with?('veth')
-  Facter.debug("Running ethtool on interface #{interface}")
-  speedline = Facter::Util::Resolution.exec("ethtool #{interface} 2>/dev/null | grep Speed")
-  if speedline =~ /Speed: \d+Mb\/s/
-    speed = /Speed: (\d+)Mb\/s/.match(speedline)[1]
-    Facter.add('speed_' + Facter::Util::IP.alphafy(interface)) do
-      confine :kernel => "Linux"
-      setcode do
-        speed
+if File.exists?('/sbin/ethtool')
+  Dir.foreach('/sys/class/net').each do |interface|
+    Facter.debug("Running ethtool on interface #{interface}")
+    speedline = %x{/sbin/ethtool #{interface} 2>/dev/null}.split("\n").detect{|x| x.include?('Speed:')}
+    speed = speedline && speedline.scan(/\d+/).first
+    if speed
+      Facter.add('speed_' + interface.gsub(/[^a-z0-9_]/i, '_')) do
+        confine :kernel => "Linux"
+        setcode do
+          speed
+        end
       end
+    else
+      Facter.debug("Running ethtool on #{interface} didn't give any Speed line")
     end
-  else
-    Facter.debug("Running ethtool on #{interface} didn't give any Speed line")
   end
 end
-
