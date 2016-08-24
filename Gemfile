@@ -2,6 +2,8 @@ source "http://rubygems.org"
 
 group :test do
   gem "rake"
+  gem "json", RUBY_VERSION == '1.9.3' && '< 2.0.0' || nil
+  gem "json_pure", RUBY_VERSION == '1.9.3' && '< 2.0.0' || nil
   gem "puppet", ENV['PUPPET_VERSION'] || '~> 3.4.0'
   gem "puppet-lint"
   gem "rspec-puppet", :git => 'https://github.com/rodjek/rspec-puppet.git'
