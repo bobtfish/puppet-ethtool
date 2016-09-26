@@ -14,7 +14,7 @@ module Ethtool
     end
 
     def self.ethtool_i(interface)
-      %x{/sbin/ethtool -i #{Shellwords.escape(interface)} 2>/dev/null}
+      %x{/usr/sbin/ethtool -i #{Shellwords.escape(interface)} 2>/dev/null}
     end
 
     # Get all interfaces on the system
