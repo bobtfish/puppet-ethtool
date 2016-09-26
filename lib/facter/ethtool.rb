@@ -5,12 +5,12 @@ module Ethtool
 
     # Check whether ethtool exists
     def self.exists?
-      File.exists?('/sbin/ethtool')
+      File.exists?('/usr/sbin/ethtool')
     end
 
     # Run ethtool on an interface
     def self.ethtool(interface)
-      %x{/sbin/ethtool #{Shellwords.escape(interface)} 2>/dev/null}
+      %x{/usr/sbin/ethtool #{Shellwords.escape(interface)} 2>/dev/null}
     end
 
     # Get all interfaces on the system
