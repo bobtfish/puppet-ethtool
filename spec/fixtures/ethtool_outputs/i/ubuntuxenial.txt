@@ -1,0 +1,10 @@
+driver: ath10k_pci
+version: 4.4.0-77-generic
+firmware-version: WLAN.RM.2.0-00180-QCARMSWPZ-1
+expansion-rom-version:
+bus-info: 0000:3a:00.0
+supports-statistics: yes
+supports-test: no
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: no

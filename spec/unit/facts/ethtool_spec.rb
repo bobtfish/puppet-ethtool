@@ -31,45 +31,23 @@ describe Ethtool::Facts do
   describe '#gather' do
     it 'returns a hash of interfaces and their speeds' do
       Ethtool::Facts.stubs(:interfaces).returns(['enp0s25', 'vboxnet0'])
-      Ethtool::Facts.stubs(:ethtool).with('enp0s25').returns('Settings for enp0s25:
-  Supported ports: [ TP ]
-  Supported link modes:   10baseT/Half 10baseT/Full 
-                          100baseT/Half 100baseT/Full 
-                          1000baseT/Full 
-  Supported pause frame use: No
-  Supports auto-negotiation: Yes
-  Advertised link modes:  10baseT/Half 10baseT/Full 
-                          100baseT/Half 100baseT/Full 
-                          1000baseT/Full 
-  Advertised pause frame use: No
-  Advertised auto-negotiation: Yes
-  Speed: Unknown!
-  Duplex: Unknown! (255)
-  Port: Twisted Pair
-  PHYAD: 2
-  Transceiver: internal
-  Auto-negotiation: on
-  MDI-X: Unknown (auto)
-  Current message level: 0x00000007 (7)
-             drv probe link
-  Link detected: no')
-      Ethtool::Facts.stubs(:ethtool).with('vboxnet0').returns('Settings for vboxnet0:
-  Supported ports: [ ]
-  Supported link modes:   Not reported
-  Supported pause frame use: No
-  Supports auto-negotiation: No
-  Advertised link modes:  Not reported
-  Advertised pause frame use: No
-  Advertised auto-negotiation: No
-  Speed: 10Mb/s
-  Duplex: Full
-  Port: Twisted Pair
-  PHYAD: 0
-  Transceiver: internal
-  Auto-negotiation: off
-  MDI-X: Unknown
-  Link detected: no')
-      expect(Ethtool::Facts.gather).to eq({'enp0s25'=>{'max_speed'=>1000},'vboxnet0'=>{'speed'=>10}})
+      Ethtool::Facts.stubs(:ethtool).with('enp0s25').
+          returns(IO.read("#{File.dirname(__FILE__)}/../../fixtures/ethtool_outputs/enp0s25.txt"))
+      Ethtool::Facts.stubs(:ethtool).with('enp0s25', '-i').
+          returns(IO.read("#{File.dirname(__FILE__)}/../../fixtures/ethtool_outputs/i/ubuntuxenial.txt"))
+      Ethtool::Facts.stubs(:ethtool).with('vboxnet0').
+          returns(IO.read("#{File.dirname(__FILE__)}/../../fixtures/ethtool_outputs/vboxnet0.txt"))
+      Ethtool::Facts.stubs(:ethtool).with('vboxnet0', '-i').
+          returns(IO.read("#{File.dirname(__FILE__)}/../../fixtures/ethtool_outputs/i/ubuntuxenial.txt"))
+
+      expect(Ethtool::Facts.gather).to eq({
+                                              'enp0s25' => {'max_speed' => 1000,
+                                                            'driver' => 'ath10k_pci',
+                                                            'driver_version' => '4.4.0-77-generic', },
+                                              'vboxnet0' => {'speed' => 10,
+                                                             'driver' => 'ath10k_pci',
+                                                             'driver_version' => '4.4.0-77-generic', }
+                                          })
     end
   end
 

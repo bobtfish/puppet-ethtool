@@ -9,7 +9,7 @@
 #  is installed on the system.
 #
 class ethtool (
-  $ensure_installed = true
+  Boolean $ensure_installed = true
 ) {
 
   validate_bool($ensure_installed)
