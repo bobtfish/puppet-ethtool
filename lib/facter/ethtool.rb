@@ -9,13 +9,13 @@ module Ethtool
     end
 
     # Run ethtool on an interface
-    def self.ethtool(interface)
-      %x{/usr/sbin/ethtool #{Shellwords.escape(interface)} 2>/dev/null}
+    def self.ethtool(interface, option='')
+      %x{/usr/sbin/ethtool #{option} #{Shellwords.escape(interface)}  2>/dev/null}
     end
 
     # Get all interfaces on the system
     def self.interfaces
-      Dir.foreach('/sys/class/net').reject{|x| x.start_with?('.', 'veth')}
+      Dir.foreach('/sys/class/net').reject {|x| x.start_with?('.', 'veth')}
     end
 
     # Convert raw interface names into a canonical version
@@ -27,11 +27,12 @@ module Ethtool
     def self.gather
       interfaces.inject({}) do |interfaces, interface|
         output = ethtool(interface)
+        output_i = ethtool(interface, '-i')
 
         metrics = {}
 
         # Extract the interface speed
-        speedline = output.split("\n").detect{|x| x.include?('Speed:')}
+        speedline = output.split("\n").detect {|x| x.include?('Speed:')}
         speed = speedline && speedline.scan(/\d+/).first
         metrics['speed'] = speed.to_i if speed
 
@@ -39,6 +40,14 @@ module Ethtool
         linkmodes = output.scan(/Supported link modes:[^:]*/m).first
         max_speed = linkmodes && linkmodes.scan(/\d+/).map(&:to_i).max
         metrics['max_speed'] = max_speed.to_i if max_speed
+
+        # Extract the interface driver info
+        driver_line = output_i.match(/^driver:\s+(?<driver>.*)/)
+        metrics['driver'] = driver_line[:driver].to_s if driver_line
+
+        # Extract the interface driver info
+        driver_version_line = output_i.match(/^version:\s+(?<version>.*)/)
+        metrics['driver_version'] = driver_version_line[:version].to_s if driver_version_line
 
         # Gather the interface statistics
         next interfaces if metrics.empty?
@@ -50,7 +59,7 @@ module Ethtool
     # Gather all facts
     def self.facts
       # Ethtool isn't installed, don't collect facts
-      return if ! exists?
+      return if !exists?
 
       ifstats = gather
 
@@ -63,29 +72,23 @@ module Ethtool
       end
 
       # Legacy facts
-      ifstats.each do |interface, data|
-        next unless data['speed']
-        Facter.add('speed_' + interface) do
-          confine :kernel => 'Linux'
-          setcode do
-            # Backwards compatibility
-            data['speed'].to_s
-          end
-        end
-      end
-
-      ifstats.each do |interface, data|
-        next unless data['max_speed']
-        Facter.add('maxspeed_' + interface) do
-          confine :kernel => 'Linux'
-          setcode do
-            # Backwards compatibility
-            data['max_speed'].to_s
+      ['speed', 'maxspeed', 'driver', 'driver_version'].each do |fact_name|
+        ifstats.each do |interface, data|
+          next unless data[fact_name]
+          Facter.add("#{fact_name}_" + interface) do
+            confine :kernel => 'Linux'
+            setcode do
+              # Backwards compatibility
+              if fact_name == 'maxspeed'
+                data['max_speed'].to_s
+              else
+                data[fact_name].to_s
+              end
+            end
           end
         end
       end
     end
-
   end
 end
 
