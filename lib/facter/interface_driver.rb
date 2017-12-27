@@ -2,8 +2,7 @@ require 'facter'
 require 'facter/util/ip'
 require 'json'
 Facter::Util::IP.get_interfaces.each do |interface|
-  next if interface.start_with?('veth')
-  next if ! File.exists?('/sbin/ethtool') 
+  next if interface.start_with?('veth') || ! File.exists?('/sbin/ethtool') 
   Facter.debug("Running ethtool on interface #{interface}")
   data = {}
   Facter::Util::Resolution.exec("ethtool -i #{interface} 2>/dev/null").split("\n").each do |line|
