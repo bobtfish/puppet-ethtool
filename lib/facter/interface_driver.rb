@@ -13,7 +13,7 @@ Socket.getifaddrs.each do |ifaddr|
     end
   end
   if data['driver']
-    Facter.add('driver_' + interface.gsub(/[:.]/, '_')) do
+    Facter.add('driver_' + interface) do
       confine :kernel => "Linux"
       setcode do
         data['driver']
@@ -21,7 +21,7 @@ Socket.getifaddrs.each do |ifaddr|
     end
   end
   if data['version']
-    Facter.add('driver_version' + interface.gsub(/[:.]/, '_')) do
+    Facter.add('driver_version_' + interface) do
       confine :kernel => "Linux"
       setcode do
         data['version']
