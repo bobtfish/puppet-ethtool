@@ -3,4 +3,6 @@ pkg
 spec/fixtures/manifests
 spec/fixtures/modules
 .rspec_system
+.ruby-version
+.ruby-gemset
 Gemfile.lock

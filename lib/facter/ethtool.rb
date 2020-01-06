@@ -13,6 +13,11 @@ module Ethtool
       %x{/usr/sbin/ethtool #{Shellwords.escape(interface)} 2>/dev/null}
     end
 
+    # Run ethtool driver command
+    def self.ethtool_driver(interface)
+      %x{/usr/sbin/ethtool -i #{Shellwords.escape(interface)} 2>/dev/null}
+    end
+
     # Get all interfaces on the system
     def self.interfaces
       Dir.foreach('/sys/class/net').reject{|x| x.start_with?('.', 'veth')}
@@ -40,9 +45,20 @@ module Ethtool
         max_speed = linkmodes && linkmodes.scan(/\d+/).map(&:to_i).max
         metrics['max_speed'] = max_speed.to_i if max_speed
 
+	# Collect driver information
+        driver_data = {}
+	driver_output = ethtool_driver(interface).split("\n").each do |line|
+          k, v = line.split(': ')
+          if v
+           driver_data[k]=v
+          end
+	end
+	metrics['driver_data'] = driver_data
+
         # Gather the interface statistics
         next interfaces if metrics.empty?
         interfaces[alphafy(interface)] = metrics
+
         interfaces
       end
     end
@@ -81,6 +97,28 @@ module Ethtool
           setcode do
             # Backwards compatibility
             data['max_speed'].to_s
+          end
+        end
+      end
+
+      # Expose driver data
+      ifstats.each do |interface, data|
+        next unless data['driver_data']['driver']
+        Facter.add('driver_' + interface) do
+          confine :kernel => 'Linux'
+          setcode do
+            # Backwards compatibility
+            data['driver_data']['driver'].to_s
+          end
+        end
+      end
+      ifstats.each do |interface, data|
+        next unless data['driver_data']['version']
+        Facter.add('driver_version' + interface) do
+          confine :kernel => 'Linux'
+          setcode do
+            # Backwards compatibility
+            data['driver_data']['version'].to_s
           end
         end
       end
