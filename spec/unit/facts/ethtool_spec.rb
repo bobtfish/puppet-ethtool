@@ -69,7 +69,12 @@ describe Ethtool::Facts do
   Auto-negotiation: off
   MDI-X: Unknown
   Link detected: no')
-      expect(Ethtool::Facts.gather).to eq({'enp0s25'=>{'max_speed'=>1000},'vboxnet0'=>{'speed'=>10}})
+      expect(Ethtool::Facts.gather).to eq(
+        {
+          'enp0s25'=>{'max_speed'=>1000,'driver_data'=>{}},
+          'vboxnet0'=>{'speed'=>10,'driver_data'=>{}}
+        }
+      )
     end
   end
 
